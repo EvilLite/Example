@@ -9,15 +9,16 @@ import UIKit
 
 class ViewController: UIViewController {
     let person = Person(firstName: "alex", lastName: "grigol")
+    let anotherPerson = Person(firstName: "alice", lastName: "wonderland")
+    let anotherPerson2 = Person(firstName: "bob", lastName: "marley")
     private let helper = Helper() //1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         updateNumbers()
-        
-        print("view did load")
-        print(person.fullName)
-        
+        updatePerson()
+        returnPerson()
+
         }
        
     private func updateNumbers() {
@@ -28,5 +29,16 @@ class ViewController: UIViewController {
         }
     
     }
+    
+    private func updatePerson() {
+        helper.addPerson(person)
+        helper.addPerson(anotherPerson)
+        helper.addPerson(anotherPerson2)
+    }
+    
+    private func returnPerson() {
+        helper.returnPerson()
+    }
+    
 }
 

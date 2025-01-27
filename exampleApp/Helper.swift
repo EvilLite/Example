@@ -8,6 +8,19 @@
 import Foundation
 
 class Helper {
+    
+    var listPeople: [Person] = []
+    
+
+    func addPerson(_ person: Person) {
+        listPeople.append(person)
+    }
+    func returnPerson() {
+        for person in listPeople {
+            print(person.fullName)
+        }
+    }
+    
     private var numbers: [Int] = [] //1
     
     
