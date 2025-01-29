@@ -9,26 +9,16 @@ import Foundation
 
 class Helper {
     
-    var listPeople: [Person] = []
+    var listPeople: [User] = []
     
 
-    func addPerson(_ person: Person) {
+    func addPerson(_ person: User) {
         listPeople.append(person)
     }
-    func returnPerson() {
-        for person in listPeople {
-            print(person.fullName)
+    func printPerson() {
+        for user in listPeople {
+            print(user.fullName, user.login,user.password)
         }
     }
     
-    private var numbers: [Int] = [] //1
-    
-    
-    func addNumber(_ number: Int) { //2
-        numbers.append(number)
-    }
-    
-    func getNumbers() -> [Int] { //3
-        numbers
-    }
 }

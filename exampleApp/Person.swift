@@ -7,16 +7,20 @@
 
 import Foundation
 
-class Person {
-    var firstName: String
-    var lastName: String
+struct Person {
+    let firstName: String
+    let lastName: String
+    var fullName: String {
+        "\(firstName) \(lastName)"
+    }
+}
+
+struct User {
+    let login: String
+    let password: String
+    let person: Person
     
     var fullName: String {
-        return "\(firstName) \(lastName)"
-    }
-    
-    init(firstName: String, lastName: String) {
-        self.firstName = firstName
-        self.lastName = lastName    
+        person.fullName
     }
 }
