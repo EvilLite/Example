@@ -24,4 +24,6 @@ class Helper {
     func addAllPerson(_ person: [User]) {
         listPeople.append(contentsOf: person)
     }
+    
+    
 }
