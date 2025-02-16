@@ -15,21 +15,8 @@ class ViewController: UIViewController {
     private let textLabel = UILabel()
     private let imageView3 = UIImageView()
     private var myView = UIView()
-    ///
-    
-    
-    
-    ///
-    private let button1: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Show FullName", for: .normal)
-        button.backgroundColor = .green
-        button.setTitleColor(.black, for: .normal)
-        button.layer.cornerRadius = 10
-        button.frame = CGRect(x: 100, y: 100, width: 150, height: 50)
-        return button
-    }()
-    
+    private var button = UIButton()
+    private var stackView = UIStackView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,40 +27,23 @@ class ViewController: UIViewController {
         updatePerson()
         printPerson()
         setupLabel()
-       // setupImageView()
         setupView()
-       // setupImageView1()
-        
         setupUIView()
         setupImageView3()
-       
+        setubButton()
         
-        button1.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        setupStackView()
+        view.addSubview(stackView)
+        setupLayout()
         
-        //
-      
-        
-        
-      
-        
-       
-        
-        
-        
-        //
-        view.addSubview(textLabel)
-        view.addSubview(button1)
-        //view.addSubview(imageView)
-        //view.addSubview(imageView1)
+        //view.addSubview(textLabel)
+        //view.addSubview(button)
         
         //добавляю фрейм
-        view.addSubview(myView)
+        //view.addSubview(myView)
         //импортирую во фрейм картинку
-        myView.addSubview(imageView3)
-        
-        
-        
-        
+        //myView.addSubview(imageView3)
         
     }
     
@@ -95,17 +65,18 @@ class ViewController: UIViewController {
         }
         textLabel.font = .systemFont(ofSize: 25, weight: .bold)
         textLabel.textColor = .blue
-        textLabel.frame = CGRect(x: 35, y: 35, width: 100, height: 50)
+        textLabel.frame = CGRect(x: 50, y: 50, width: 50, height: 50)
         textLabel.alpha = 0
+        textLabel.textAlignment = .center
     }
- /*
-    private func setupImageView() {
-        imageView.image = UIImage(named: "Screenshot 2025-01-22 at 18.53.40")
-        imageView.frame = CGRect(x: 100, y: 150, width: 150, height: 300)
-        imageView.layer.cornerRadius = 20
-        imageView.clipsToBounds = true
+    private func setubButton() {
+        button = UIButton(type: .system)
+        button.setTitle("Show FullName", for: .normal)
+        button.backgroundColor = .green
+        button.setTitleColor(.black, for: .normal)
+        button.layer.cornerRadius = 10
+        button.frame = CGRect(x: 100, y: 100, width: 200, height: 50)
     }
-*/
     private func setupView() {
         let gradient = CAGradientLayer()
         gradient.frame =  view.bounds
@@ -116,24 +87,14 @@ class ViewController: UIViewController {
         //добавляем подслой к кнопке
         view.layer.insertSublayer(gradient, at: 0) //градиент на фоне кнопки
     }
-/*
-    private func setupImageView1() {
-        imageView1.image = UIImage(named: "Screenshot 2025-01-22 at 18.53.40")
-        imageView1.frame = CGRect(x: 100, y: 450, width: 150, height: 300)
-        imageView1.layer.cornerRadius = 20
-        imageView1.layer.shadowOffset = CGSize(width: 15, height: 15)
-        imageView1.layer.shadowOpacity = 1
-        imageView1.layer.shadowRadius = 10
-        
-    }
- */
     
- 
+    
+    
     //создаю фрейм с тенью с размерами картинки
     private func setupUIView() {
-       
+        
         //myView = UIView(frame: imageView3.bounds)
-        myView.frame = CGRect(x: 50, y: 200, width: 200, height: 300)
+        myView.frame = CGRect(x: 100, y: 200, width: 200, height: 300)
         myView.layer.cornerRadius = 20
         myView.layer.shadowOffset = CGSize(width: 15, height: 15)
         myView.layer.shadowOpacity = 1
@@ -141,22 +102,58 @@ class ViewController: UIViewController {
     }
     
     //создаю картинку
-     private func setupImageView3() {
-         imageView3.image = UIImage(named: "Screenshot 2025-01-22 at 18.53.40")
-         
-         imageView3.frame = myView.bounds
-         //imageView3.frame = CGRect(x: 50, y: 200, width: 200, height: 300)
-         imageView3.layer.cornerRadius = 20
-         imageView3.clipsToBounds = true
-     }
-     
+    private func setupImageView3() {
+        imageView3.image = UIImage(named: "Screenshot 2025-01-22 at 18.53.40")
+        
+        imageView3.frame = myView.bounds
+        //imageView3.frame = CGRect(x: 50, y: 200, width: 200, height: 300)
+        imageView3.layer.cornerRadius = 20
+        imageView3.clipsToBounds = true
+        
+        myView.frame = CGRect(x: 100, y: 200, width: 200, height: 300)
+        myView.addSubview(imageView3)
+    }
+    
     
     
     @objc private func buttonTapped() {
         view.backgroundColor = .white
         textLabel.alpha = 1
-        textLabel.frame = CGRect(x: 35, y: 35, width: 1000, height: 50)
+        textLabel.frame = CGRect(x: 100, y: 50, width: 1000, height: 50)
         
+    }
+    
+    
+    private func setupStackView() {
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 10
+        
+        stackView.addArrangedSubview(textLabel)
+        stackView.addArrangedSubview(myView)
+        stackView.addArrangedSubview(imageView3)
+        stackView.addArrangedSubview(button)
+    }
+    
+    private func setupLayout() {
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        myView.translatesAutoresizingMaskIntoConstraints = false
+        imageView3.translatesAutoresizingMaskIntoConstraints = false
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackView.widthAnchor.constraint(equalToConstant: 200),
+            stackView.heightAnchor.constraint(equalToConstant: 400),
+            
+            
+            imageView3.topAnchor.constraint(equalTo: myView.topAnchor),
+            imageView3.bottomAnchor.constraint(equalTo: myView.bottomAnchor),
+            imageView3.leadingAnchor.constraint(equalTo: myView.leadingAnchor),
+            imageView3.trailingAnchor.constraint(equalTo: myView.trailingAnchor)
+        ])
     }
 }
 
