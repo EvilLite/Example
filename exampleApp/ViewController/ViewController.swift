@@ -25,30 +25,35 @@ class ViewController: UIViewController {
         setupView()
         setupUIView()
         setupImageView3()
-        customButton1.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        customButton2.addTarget(self, action: #selector(buttonTapped1), for: .touchUpInside)
+        addAction()
         setupStackView()
         view.addSubview(stackView)
         setupLayout()
         
     }
+}
+
+
+extension UIStackView {
     
-    private func updatePerson() {
-        let allPerson = userRepository.returnMass()
-        helper.addAllPerson(allPerson)
-    }
-    
- //   private func printPerson() {
-       // helper.printPerson()
-   // }
-    
-    func printPerson() {
-        for user in helper.listPeople {
-            print(user.fullName, user.login,user.password)
+    func addArrangedSubView(_ views: UIView...) {
+        for view in views {
+            self.addArrangedSubview(view)
         }
     }
-    
-    private func setupLabel() {
+}
+
+extension UIView {
+    func addSubView(_ views: UIView...) {
+        for view in views {
+            self.addSubView(view)
+        }
+    }
+}
+
+//MARK: - Setup View
+private extension ViewController {
+    func setupLabel() {
         if let userInfo = userRepository.returnMass().randomElement() {
             textLabel.text = "\(userInfo.fullName)"
         } else {
@@ -60,9 +65,12 @@ class ViewController: UIViewController {
         textLabel.textAlignment = .center
     }
     
-   
+    private func addAction() {
+        customButton1.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        customButton2.addTarget(self, action: #selector(buttonTapped1), for: .touchUpInside)
+    }
     
-    private func setupView() {
+     func setupView() {
         let gradient = CAGradientLayer()
         gradient.frame =  view.bounds
         gradient.colors = [UIColor.green.cgColor, UIColor.blue.cgColor]
@@ -75,7 +83,7 @@ class ViewController: UIViewController {
     
     
     //создаю фрейм с тенью с размерами картинки
-    private func setupUIView() {
+    func setupUIView() {
         myView.layer.cornerRadius = 20
         myView.layer.shadowOffset = CGSize(width: 15, height: 15)
         myView.layer.shadowOpacity = 1
@@ -83,7 +91,7 @@ class ViewController: UIViewController {
     }
     
     //создаю картинку
-    private func setupImageView3() {
+    func setupImageView3() {
         imageView3.image = UIImage(named: "Screenshot 2025-01-22 at 18.53.40")
         imageView3.frame = myView.bounds
         imageView3.layer.cornerRadius = 20
@@ -102,21 +110,18 @@ class ViewController: UIViewController {
         textLabel.alpha = 0
     }
     
-    private func setupStackView() {
+     func setupStackView() {
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
         stackView.spacing = 10
-        
-        stackView.addArrangedSubview(textLabel)
-        stackView.addArrangedSubview(myView)
-        stackView.addArrangedSubview(imageView3)
-        //stackView.addArrangedSubview(button)
-        stackView.addArrangedSubview(customButton1)
-        stackView.addArrangedSubview(customButton2)
+        stackView.addArrangedSubView(textLabel,myView,imageView3,customButton1,customButton2)
     }
-    
-    private func setupLayout() {
+}
+
+// MARK: - Setup layout
+private extension ViewController {
+     func setupLayout() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         myView.translatesAutoresizingMaskIntoConstraints = false
         imageView3.translatesAutoresizingMaskIntoConstraints = false
@@ -136,6 +141,18 @@ class ViewController: UIViewController {
     }
 }
 
-
-
-
+// MARK: - Update Info
+private extension ViewController {
+     func updatePerson() {
+        let allPerson = userRepository.returnMass()
+        helper.addAllPerson(allPerson)
+    }
+    
+    func printPerson() {
+        let userInfo = userRepository.returnMass()
+        
+        for user in userInfo {
+            print(user.fullName)
+        }
+    }
+}

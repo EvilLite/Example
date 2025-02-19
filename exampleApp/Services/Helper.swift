@@ -9,7 +9,7 @@ import Foundation
 
 class Helper {
     
-     var listPeople: [User] = []
+   private  var listPeople: [User] = []
     
     
     func addPerson(_ person: User) {

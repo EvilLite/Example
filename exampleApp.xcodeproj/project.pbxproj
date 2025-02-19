@@ -29,6 +29,21 @@
 			path = exampleApp;
 			sourceTree = "<group>";
 		};
+		E5738B2F2D669A750075BB4E /* Resources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		E5738B312D669A8F0075BB4E /* Extensions */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E5738B332D669AA80075BB4E /* CustomElements */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CustomElements;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +62,9 @@
 			children = (
 				E501AE5A2D4404790071B910 /* exampleApp */,
 				E501AE592D4404790071B910 /* Products */,
+				E5738B2F2D669A750075BB4E /* Resources */,
+				E5738B312D669A8F0075BB4E /* Extensions */,
+				E5738B332D669AA80075BB4E /* CustomElements */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,6 +93,9 @@
 			);
 			fileSystemSynchronizedGroups = (
 				E501AE5A2D4404790071B910 /* exampleApp */,
+				E5738B2F2D669A750075BB4E /* Resources */,
+				E5738B312D669A8F0075BB4E /* Extensions */,
+				E5738B332D669AA80075BB4E /* CustomElements */,
 			);
 			name = exampleApp;
 			packageProductDependencies = (
