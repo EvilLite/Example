@@ -10,12 +10,16 @@ import UIKit
 class ViewController: UIViewController {
     private let helper = Helper() //1
     private let userRepository = UserRepository()
+    
     private let textLabel = UILabel()
     private let imageView3 = UIImageView()
     private var myView = UIView()
     private var stackView = UIStackView()
+    
     private var customButton1 = CustomButton("Show New User", .red)
     private var customButton2 = CustomButton("Hide User", .green, true)
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white.withAlphaComponent(0.1)
