@@ -2,7 +2,7 @@ import UIKit
 
 class CustomButton:UIButton {
     
-    
+ 
     init(_ nameButton: String,_ backgroundCol: UIColor){
         super.init(frame: .zero)
         setupButton(nameButton, backgroundCol)
@@ -13,17 +13,18 @@ class CustomButton:UIButton {
         setupButton(nameButton, backgroundCol)
         setupView(shadow)
     }
+
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     private func setupButton(_ nameButton: String, _ backgroundCol: UIColor) {
         UIButton(type: .system)
         setTitle(nameButton, for: .normal)
         backgroundColor = backgroundCol
         setTitleColor(.black, for: .normal)
         layer.cornerRadius = 10
+       
     }
     
     private func setupView(_ shadow: Bool) {
@@ -38,4 +39,5 @@ class CustomButton:UIButton {
         }
         
     }
+    
 }

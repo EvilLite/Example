@@ -10,12 +10,10 @@ import UIKit
 class ViewController: UIViewController {
     private let helper = Helper() //1
     private let userRepository = UserRepository()
-    
     private let textLabel = UILabel()
-    private let imageView3 = UIImageView()
     private var myView = UIView()
     private var stackView = UIStackView()
-    
+    private var shadowView = ShadowView(imageName:ShadowViewType.bag.rawValue)
     private var customButton1 = CustomButton("Show New User", .red)
     private var customButton2 = CustomButton("Hide User", .green, true)
     
@@ -28,7 +26,6 @@ class ViewController: UIViewController {
         setupLabel()
         setupView()
         setupUIView()
-        setupImageView3()
         addAction()
         setupStackView()
         view.addSubview(stackView)
@@ -38,22 +35,24 @@ class ViewController: UIViewController {
 }
 
 
-extension UIStackView {
+
+
+
+// MARK: - Nested types
+
+extension ViewController {
     
-    func addArrangedSubView(_ views: UIView...) {
-        for view in views {
-            self.addArrangedSubview(view)
-        }
+    enum ShadowViewType: String {
+        case bag = "Screenshot 2025-01-22 at 18.53.40"
+        case car = "CleanShot 2025-02-26 at 11.30.19"
+    }
+    
+    enum Constant {
+        static let font30: CGFloat = 30
     }
 }
 
-extension UIView {
-    func addSubView(_ views: UIView...) {
-        for view in views {
-            self.addSubView(view)
-        }
-    }
-}
+
 
 //MARK: - Setup View
 private extension ViewController {
@@ -92,34 +91,19 @@ private extension ViewController {
         myView.layer.shadowOffset = CGSize(width: 15, height: 15)
         myView.layer.shadowOpacity = 1
         myView.layer.shadowRadius = 10
-    }
-    
-    //создаю картинку
-    func setupImageView3() {
-        imageView3.image = UIImage(named: "Screenshot 2025-01-22 at 18.53.40")
-        imageView3.frame = myView.bounds
-        imageView3.layer.cornerRadius = 20
-        imageView3.clipsToBounds = true
-        myView.addSubview(imageView3)
+       
+       
     }
     
     
-    @objc private func buttonTapped() {
-        view.backgroundColor = .white
-        textLabel.alpha = 1
-    }
-    
-    @objc private func buttonTapped1() {
-        view.backgroundColor = .white
-        textLabel.alpha = 0
-    }
+   
     
      func setupStackView() {
         stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.alignment = .fill
-        stackView.spacing = 10
-        stackView.addArrangedSubView(textLabel,myView,imageView3,customButton1,customButton2)
+         stackView.distribution = .equalSpacing
+         stackView.alignment = .fill
+        stackView.spacing = 20
+         stackView.addArrangedSubView(textLabel,myView,shadowView,customButton1,customButton2)
     }
 }
 
@@ -127,20 +111,19 @@ private extension ViewController {
 private extension ViewController {
      func setupLayout() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        myView.translatesAutoresizingMaskIntoConstraints = false
-        imageView3.translatesAutoresizingMaskIntoConstraints = false
+         myView.translatesAutoresizingMaskIntoConstraints = false
+         customButton1.translatesAutoresizingMaskIntoConstraints = false
+         customButton2.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stackView.widthAnchor.constraint(equalToConstant: 200),
-            stackView.heightAnchor.constraint(equalToConstant: 400),
+            stackView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
+            shadowView.heightAnchor.constraint(equalTo: stackView.widthAnchor),
+    
+            customButton1.heightAnchor.constraint(equalToConstant: 50),
             
-            
-            imageView3.topAnchor.constraint(equalTo: myView.topAnchor),
-            imageView3.bottomAnchor.constraint(equalTo: myView.bottomAnchor),
-            imageView3.leadingAnchor.constraint(equalTo: myView.leadingAnchor),
-            imageView3.trailingAnchor.constraint(equalTo: myView.trailingAnchor)
+            customButton2.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
 }
@@ -158,5 +141,21 @@ private extension ViewController {
         for user in userInfo {
             print(user.fullName)
         }
+    }
+    
+    @objc private func buttonTapped() {
+        //view.backgroundColor = .white
+        textLabel.alpha = 1
+        let userInfo = userRepository.returnMass()
+        textLabel.text = userInfo.randomElement()?.fullName
+       let randomImage = [
+        ShadowViewType.bag,
+        ShadowViewType.car
+       ].randomElement() ?? ShadowViewType.bag
+        shadowView.updateImage(randomImage.rawValue)
+    }
+    
+    @objc private func buttonTapped1() {
+        textLabel.alpha = 0
     }
 }
